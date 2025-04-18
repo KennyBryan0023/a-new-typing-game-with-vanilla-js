@@ -250,3 +250,62 @@ body.dark-mode button#startButton {
 body.dark-mode button#startButton:hover {
     background-color: #a04c2b;
 }
+
+/* Responsive*/
+@media (max-width: 1024px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        margin-top: 10px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .container {
+        width: 90%;
+        height: auto;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    #word-display {
+        font-size: 1em;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    #input-field {
+        margin-top: 30px;
+    }
+
+    .stats {
+        flex-direction: row;
+        justify-content: space-around;
+        position: static;
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .settings {
+        position: static;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    button#startButton {
+        position: static;
+        margin-top: 30px;
+        transform: none;
+        left: auto;
+        right: auto;
+        width: 20%;
+    }
+
+    #settingsButton {
+        margin-left: 800px;
+        margin-top: 10px;
+    }
+}
