@@ -45,6 +45,23 @@
             <button onclick="applySettings()">Apply</button>
         </div>
     </div>
+    
+    <div class="container">
+        <video id="video1" src="background-vidéo_1.mp4" autoplay loop muted></video>
+        <video id="video2" src="vidéo_2.mp4" autoplay loop muted style="display: none;"></video>
+        <div id="word-display"></div>
+        <input type="text" id="input-field" placeholder="Tapez ici..." autofocus autocomplete="off">
+        <div class="stats">
+            <p style="color: white; font-weight: bold;"><strong style="color: white;">Time :</strong> <span id="time"
+                    style="color: white; font-weight: bold;">60</span>s</p>
+            <p><strong style="color: white;">WPM :</strong> <span id="wpm"
+                    style="color: white; font-weight: bold;">0</span></p>
+            <p style="color: white; font-weight: bold;"><strong style="color: white;">Precision :</strong> <span
+                    id="accuracy" style="color: white; font-weight: bold;">000</span>%</p>
+        </div>
+        <button id="startButton">Start the test</button>
+        <button id="restartButton">Restart</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
