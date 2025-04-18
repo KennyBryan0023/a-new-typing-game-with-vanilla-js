@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    padding: 0;
+    font-family: "quicksand", sans-serif;
+}
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.logo {
+    position: fixed;
+    top: 20px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logo i {
+    margin-right: 10px;
+    font-size: 2.5em;
+    color: chocolate;
+}
+
+body.dark-mode .logo i {
+    color: #8a8888;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: white;
+}
+
+.bungee-spice-regular {
+    font-family: "Bungee Spice", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
