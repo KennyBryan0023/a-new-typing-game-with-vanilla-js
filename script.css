@@ -46,3 +46,93 @@ body.dark-mode .logo i {
     font-weight: 400;
     font-style: normal;
 }
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.settings {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    left: 570px;
+    text-align: left;
+}
+
+#settingsButton {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+}
+
+#settingsButton:hover {
+    background-color: #eee;
+}
+
+#settingsPanel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 180px;
+    text-align: left;
+}
+
+#settingsPanel label {
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+#settingsPanel select,
+#settingsPanel button {
+    padding: 8px;
+    font-size: 0.9em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+#settingsPanel select:hover,
+#settingsPanel button:hover {
+    background-color: #eee;
+}
+
+body.dark-mode #settingsButton,
+body.dark-mode #settingsPanel {
+    background-color: #333;
+    color: #f4f4f4;
+    border-color: #555;
+}
+
+body.dark-mode #settingsPanel select,
+body.dark-mode #settingsPanel button {
+    background-color: #444;
+    color: #f4f4f4;
+    border-color: #666;
+}
