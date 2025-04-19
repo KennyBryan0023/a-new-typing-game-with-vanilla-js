@@ -300,3 +300,62 @@ function displayResults() {
     accuracyDisplay.textContent = accuracy;
     results.textContent = `${translations[currentLanguage].wpmResult}: ${wpm}, ${translations[currentLanguage].accuracyResult}: ${accuracy}%`;
 }
+
+function applySettings() {
+    currentLanguage = languageSelectElement.value;
+    const selectedTheme = themeSelectElement.value;
+    updateContent();
+    if (selectedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        lightModeVideo.style.display = 'none';
+        darkModeVideo.style.display = 'block';
+    } else {
+        body.classList.remove('dark-mode');
+        lightModeVideo.style.display = 'block';
+        darkModeVideo.style.display = 'none';
+    }
+    closeSettings();
+}
+
+function openSettings() {
+    settingsPanel.style.display = 'block';
+}
+
+function closeSettings() {
+    settingsPanel.style.display = 'none';
+}
+
+function startTest() {
+    clearInterval(timerInterval);
+    timeLeft = 60;
+    timeSpan.textContent = timeLeft;
+    currentWordIndex = 0;
+    correctTypedCharacters = 0;
+    totalTypedCharacters = 0;
+    startTime = Date.now();
+    endTime = null;
+    isTesting = true;
+
+    const difficulty = modeSelectElement.value;
+    const wordCount = difficulty === 'easy' ? 30 : (difficulty === 'medium' ? 60 : 100);
+    const lang = languageSelectElement.value;
+    generateWords(wordCount, lang);
+    displayWords();
+    inputField.disabled = false;
+    inputField.value = "";
+    inputField.focus();
+    startButton.textContent = translations[currentLanguage].restart;
+    wpmDisplay.textContent = "0";
+    accuracyDisplay.textContent = "100";
+    startTimer();
+}
+
+// Initial setup
+updateContent();
+
+// Event listeners
+inputField.addEventListener("input", handleInput);
+settingsButton.addEventListener('click', openSettings);
+applyButton.addEventListener('click', applySettings);
+startButton.addEventListener('click', startTest);
+restartButton.addEventListener('click', startTest);
