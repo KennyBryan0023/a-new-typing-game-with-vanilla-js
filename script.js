@@ -96,3 +96,111 @@ const body = document.body;
 const lightModeVideo = document.getElementById('video1');
 const darkModeVideo = document.getElementById('video2');
 const logoTitle = document.querySelector('.logo h1');
+
+let timerInterval;
+let timeLeft = 60;
+let isTesting = false;
+
+function updateContent() {
+    const lang = translations[currentLanguage];
+    settingsButton.textContent = lang.settings;
+    settingsButton.prepend(settingsIcon);
+    themeLabel.textContent = lang.theme;
+    lightOption.textContent = lang.light;
+    darkOption.textContent = lang.dark;
+    modeLabel.textContent = lang.difficulty;
+    easyOption.textContent = lang.easy;
+    mediumOption.textContent = lang.medium;
+    hardOption.textContent = lang.hard;
+    languageLabel.textContent = lang.language;
+    englishOption.textContent = lang.english;
+    frenchOption.textContent = lang.french;
+    applyButton.textContent = lang.apply;
+    inputField.placeholder = lang.typeHere;
+    timeStrong.textContent = lang.time;
+    wpmStrong.textContent = lang.wpm;
+    accuracyStrong.textContent = lang.precision;
+    startButton.textContent = lang.startTest;
+    restartButton.textContent = lang.restart;
+    logoTitle.textContent = "Typing Test";
+}
+
+function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timeSpan.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            endTest();
+        }
+    }, 1000);
+}
+
+function endTest() {
+    clearInterval(timerInterval);
+    isTesting = false;
+    endTime = Date.now();
+    if (!startTime) startTime = endTime;
+
+    console.log("--- endTest() appelé ---");
+    console.log("currentWordIndex:", currentWordIndex);
+    console.log("wordsToType.length:", wordsToType.length);
+    console.log("inputField.value.trim():", inputField.value.trim());
+    console.log("totalTypedCharacters avant vérification:", totalTypedCharacters);
+    console.log("correctTypedCharacters avant vérification:", correctTypedCharacters);
+
+    if (currentWordIndex < wordsToType.length && inputField.value.trim() !== "") {
+        const currentElement = wordDisplay.children[currentWordIndex];
+        const originalWord = wordsToType[currentWordIndex];
+        const typedValue = inputField.value.trim();
+
+        console.log("Mot original:", originalWord);
+        console.log("Frappe partielle:", typedValue);
+
+        if (typedValue !== originalWord) {
+            console.log("Mot incorrect ou partiel détecté.");
+            currentElement.classList.add("incorrect");
+            for (let i = 0; i < typedValue.length; i++) {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = typedValue[i];
+                if (i < originalWord.length && typedValue[i] !== originalWord[i]) {
+                    charSpan.classList.add("typed-incorrect");
+                } else if (i >= originalWord.length) {
+                    charSpan.classList.add("typed-incorrect");
+                }
+                currentElement.querySelector(".typed-text").appendChild(charSpan);
+            }
+            for (let i = 0; i < Math.max(typedValue.length, originalWord.length); i++) {
+                totalTypedCharacters++;
+                if (i < typedValue.length && i < originalWord.length && typedValue[i] === originalWord[i]) {
+                    correctTypedCharacters++;
+                }
+            }
+        } else if (typedValue === originalWord) {
+            console.log("Mot correct détecté (sans espace).");
+            currentElement.classList.add("correct");
+            for (let i = 0; i < typedValue.length; i++) {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = typedValue[i];
+                charSpan.classList.add("typed-correct");
+                currentElement.querySelector(".typed-text").appendChild(charSpan);
+            }
+            totalTypedCharacters += typedValue.length;
+            correctTypedCharacters += typedValue.length;
+            currentWordIndex++;
+        } else {
+            console.log("Début de frappe sans correspondance.");
+            for (let i = 0; i < typedValue.length; i++) {
+                totalTypedCharacters++;
+            }
+        }
+    }
+
+    console.log("totalTypedCharacters après vérification:", totalTypedCharacters);
+    console.log("correctTypedCharacters après vérification:", correctTypedCharacters);
+
+    displayResults();
+    inputField.disabled = true;
+    startButton.textContent = translations[currentLanguage].restart;
+}
