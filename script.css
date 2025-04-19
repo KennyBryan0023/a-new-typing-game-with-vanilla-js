@@ -125,7 +125,7 @@ select {
 
 body.dark-mode #settingsButton,
 body.dark-mode #settingsPanel {
-    background-color: #333;
+    background-color: #444;
     color: #f4f4f4;
     border-color: #555;
 }
