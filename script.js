@@ -281,3 +281,22 @@ function updateWordHighlighting() {
         if (typed && typed !== original) current.classList.add("incorrect");
     }
 }
+
+function calculateWPM() {
+    if (!startTime || !endTime || wordsToType.length === 0) return 0;
+    const seconds = (endTime - startTime) / 1000;
+    const minutes = seconds / 60;
+    return Math.round(currentWordIndex / minutes);
+}
+
+function calculateAccuracy() {
+    return totalTypedCharacters === 0 ? 100 : Math.round((correctTypedCharacters / totalTypedCharacters) * 100);
+}
+
+function displayResults() {
+    const wpm = calculateWPM();
+    const accuracy = calculateAccuracy();
+    wpmDisplay.textContent = wpm;
+    accuracyDisplay.textContent = accuracy;
+    results.textContent = `${translations[currentLanguage].wpmResult}: ${wpm}, ${translations[currentLanguage].accuracyResult}: ${accuracy}%`;
+}
