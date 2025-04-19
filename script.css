@@ -137,6 +137,12 @@ body.dark-mode #settingsPanel button {
     border-color: #666;
 }
 
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+
 .container {
     position: relative;
     padding: 30px;
