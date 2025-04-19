@@ -232,3 +232,52 @@ function displayWords() {
     });
     inputField.focus();
 }
+
+function handleInput() {
+    if (!isTesting) return;
+    const currentElement = wordDisplay.children[currentWordIndex];
+    const originalWord = wordsToType[currentWordIndex];
+    const typedValue = inputField.value;
+    const typedSpan = currentElement.querySelector(".typed-text");
+    typedSpan.innerHTML = "";
+    correctTypedCharacters = 0;
+    totalTypedCharacters = 0;
+
+    for (let i = 0; i < typedValue.length; i++) {
+        const charSpan = document.createElement("span");
+        charSpan.textContent = typedValue[i];
+        if (i < originalWord.length && typedValue[i] === originalWord[i]) {
+            charSpan.classList.add("typed-correct");
+            correctTypedCharacters++;
+        } else {
+            charSpan.classList.add("typed-incorrect");
+        }
+        typedSpan.appendChild(charSpan);
+        totalTypedCharacters++;
+    }
+
+    if (typedValue.endsWith(" ")) {
+        const trimmed = typedValue.trim();
+        currentElement.classList.remove("current");
+        currentElement.classList.add(trimmed === originalWord ? "correct" : "incorrect");
+        inputField.value = "";
+        currentWordIndex++;
+        if (currentWordIndex < wordsToType.length) {
+            wordDisplay.children[currentWordIndex].classList.add("current");
+        } else {
+            endTest();
+        }
+    }
+    updateWordHighlighting();
+}
+
+function updateWordHighlighting() {
+    [...wordDisplay.children].forEach(w => w.classList.remove("current", "incorrect"));
+    if (currentWordIndex < wordDisplay.children.length) {
+        const current = wordDisplay.children[currentWordIndex];
+        current.classList.add("current");
+        const original = wordsToType[currentWordIndex];
+        const typed = inputField.value.trim();
+        if (typed && typed !== original) current.classList.add("incorrect");
+    }
+}
