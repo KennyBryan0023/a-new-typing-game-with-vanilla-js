@@ -204,3 +204,31 @@ function endTest() {
     inputField.disabled = true;
     startButton.textContent = translations[currentLanguage].restart;
 }
+
+function generateWords(count = 50, language = 'en') {
+    const frenchWords = ["chose", "fruit", "genre", "selon", "créer", "après", "faire", "voici", "celui", "cette", "notre", "votre", "elles", "avoir", "celles", "faire", "tenir", "aller", "venir", "penser", "savoir", "pouvoir", "vouloir", "désirer"];
+    const englishWords = ["about", "quick", "rapid", "brown", "color", "thing", "leaps", "jumps", "above", "idle", "lazy", "hound", "anew", "again"];
+    const selected = language === 'fr' ? frenchWords : englishWords;
+    wordsToType.length = 0;
+    for (let i = 0; i < count; i++) {
+        wordsToType.push(selected[Math.floor(Math.random() * selected.length)]);
+    }
+}
+
+function displayWords() {
+    wordDisplay.innerHTML = "";
+    wordsToType.forEach((word, index) => {
+        const container = document.createElement("div");
+        container.classList.add("word-container");
+        const typedSpan = document.createElement("span");
+        typedSpan.classList.add("typed-text");
+        const originalSpan = document.createElement("span");
+        originalSpan.classList.add("original-word");
+        originalSpan.textContent = word;
+        container.appendChild(typedSpan);
+        container.appendChild(originalSpan);
+        if (index === 0) container.classList.add("current");
+        wordDisplay.appendChild(container);
+    });
+    inputField.focus();
+}
